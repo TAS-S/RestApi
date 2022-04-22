@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\v1\ApiContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\v1\ApiWorkerController;
+use App\Http\Controllers\Api\v1\ApiContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('/contacts', [ApiContactController::class,'index']);
 Route::prefix('v1')->group(function(){
     Route::apiResource('contacts', ApiContactController::class);
+    Route::apiResource('workers', ApiWorkerController::class);
 });

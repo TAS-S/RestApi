@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
+use App\Models\Workers;
 use Illuminate\Http\Request;
-use App\Http\Requests\ContactStoreRequest;
+use App\Http\Requests\WorkersStoreRequest;
 
-class ContactController extends Controller
+class WorkerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        
-        $contacts = Contact::all();
-        return view('contacts.index', compact('contacts'));
-        
+        $workers = Workers::all();
+        return view('workers.index', compact('workers'));
     }
 
     /**
@@ -28,7 +26,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        return view('contacts.create');
+        return view('workers.create');
     }
 
     /**
@@ -37,20 +35,15 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ContactStoreRequest $request)
+    public function store(WorkersStoreRequest $request)
     {
-
-        Contact::create([
+        Workers::create([
             'name' => $request->name,
-            'NIP' => $request->NIP,
-            'address' => $request->address,
-            'city' => $request->city,
-            'zip_code' => $request->zip_code
+            'email' => $request->email,
+            'phone' => $request->phone,
         ]);
 
-        return to_route('contacts.index')->with('message', 'Contact created successfully.');
-
-
+        return to_route('workers.index')->with('message', 'Worker created successfully.');
     }
 
     /**
@@ -72,9 +65,9 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        $contacts = Contact::findOrFail($id);
+        $workers = Workers::findOrFail($id);
 
-        return view('contacts.edit', compact('contacts'));
+        return view('workers.edit', compact('workers'));
     }
 
     /**
@@ -84,18 +77,16 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ContactStoreRequest $request, $id)
+    public function update(WorkersStoreRequest $request, $id)
     {
-        $contacts = Contact::findOrFail($id);
+        $workers = Workers::findOrFail($id);
 
-        $contacts->name = $request->name;
-        $contacts->NIP = $request->NIP;
-        $contacts->address = $request->address;
-        $contacts->city = $request->city;
-        $contacts->zip_code = $request->zip_code;
-        $contacts->update();
+        $workers->name = $request->name;
+        $workers->email = $request->email;
+        $workers->phone = $request->phone;
+        $workers->update();
 
-        return to_route('contacts.index')->with('message', 'Contact updated successfully.');
+        return to_route('workers.index')->with('message', 'Worker updated successfully.');
     }
 
     /**
@@ -106,9 +97,9 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $contacts = Contact::find($id);
-        $contacts->delete();
+        $workers = Workers::find($id);
+        $workers->delete();
 
-        return to_route('contacts.index')->with('message', 'Contact deleted successfully.');
+        return to_route('workers.index')->with('message', 'Worker deleted successfully.');
     }
 }
