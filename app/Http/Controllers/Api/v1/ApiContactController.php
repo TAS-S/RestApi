@@ -17,7 +17,7 @@ class ApiContactController extends Controller
      */
     public function index()
     {
-        return ContactResource::collection(Contact::paginate());
+        return ContactResource::collection(Contact::all());
     }
 
     /**

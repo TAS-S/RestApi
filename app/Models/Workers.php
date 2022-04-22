@@ -9,5 +9,10 @@ class Workers extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'phone'];
+    protected $fillable = ['contacts_id', 'name', 'email', 'phone'];
+
+    public function contacts()
+    {
+        return $this->belongsTo(Contact::class, 'contacts_id');
+    }
 }

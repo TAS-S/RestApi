@@ -17,7 +17,7 @@ class ApiWorkerController extends Controller
      */
     public function index()
     {
-        return WorkerResource::collection(Workers::paginate());
+        return WorkerResource::collection(Workers::all());
     }
 
     /**

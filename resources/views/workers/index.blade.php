@@ -32,6 +32,10 @@
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-white font-medium tracking-wider text-left text-gray-700 uppercase">
+                                            Company
+                                        </th>
+                                        <th scope="col"
+                                            class="py-3 px-6 text-white font-medium tracking-wider text-left text-gray-700 uppercase">
                                             Email
                                         </th>
                                         <th scope="col"
@@ -49,6 +53,10 @@
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                 {{ $worker->name }}
+                                            </td>
+                                            <td
+                                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                                {{ $worker->contacts->name }}
                                             </td>
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
