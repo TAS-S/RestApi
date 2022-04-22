@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Models\Contact;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactStoreRequest;
-use Illuminate\Http\Request;
-use App\Models\Contact;
+use App\Http\Resources\v1\ContactResource;
 
 class ApiContactController extends Controller
 {
@@ -16,7 +17,7 @@ class ApiContactController extends Controller
      */
     public function index()
     {
-        //
+        return ContactResource::collection(Contact::paginate());
     }
 
     /**
@@ -35,25 +36,11 @@ class ApiContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactStoreRequest $request)
     {
-        $request->validate([
-            'name'=>'required',
-            'NIP'=>'required|digits:10',
-            'address'=>'required',
-            'city'=>'required',
-            'zip_code'=>'required'
-        ]);
+        $contact = Contact::create($request->all());
 
-        $contact = Contact::create([
-            'name' => $request->name,
-            'NIP' => $request->NIP,
-            'address' => $request->address,
-            'city' => $request->city,
-            'zip_code' => $request->zip_code,
-        ]);
-
-        return response()->json($contact);
+        return new ContactResource($contact);
     }
 
     /**
@@ -62,9 +49,10 @@ class ApiContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Contact $contact)
     {
-        //
+        
+        return new ContactResource($contact);
     }
 
     /**
@@ -85,9 +73,11 @@ class ApiContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ContactStoreRequest $request, Contact $contact)
     {
-        //
+        $contact->update($request->all());
+
+        return new ContactResource($contact);
     }
 
     /**
@@ -96,8 +86,8 @@ class ApiContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Contact $contact)
     {
-        //
+        $contact->delete();
     }
 }
